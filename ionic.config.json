@@ -1,0 +1,7 @@
+{
+  "name": "Lupussino",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

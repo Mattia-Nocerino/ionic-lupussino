@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="(room$ | async) as room">
+    {{room.name}}
+  </div>
+</ion-content>

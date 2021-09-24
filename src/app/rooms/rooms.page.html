@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>rooms</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Crea una nuova stanza</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nome stanza</ion-label>
+        <ion-input type="text" [(ngModel)]="newRoomName"></ion-input>
+      </ion-item>
+      <ion-button expand="block" [disabled]="newRoomName==''" (click)="createRoom()">Crea stanza</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Entra in una stanza</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let room of rooms$ | async" [routerLink]="['/room', room.name]">{{ room.name }}</ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

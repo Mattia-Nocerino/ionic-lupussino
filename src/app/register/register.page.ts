@@ -11,7 +11,8 @@ import { AuthService } from '../auth.service';
 export class RegisterPage implements OnInit {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
+    displayName: new FormControl('', [Validators.required]),
   })
 
   constructor(public authService: AuthService, public toastController: ToastController) { }
@@ -27,10 +28,14 @@ export class RegisterPage implements OnInit {
     return this.form.get('password');
   }
 
+  get displayName() {
+    return this.form.get('displayName');
+  }
+
   async register() {
     if (this.form.valid) {
       try {
-        const res = await this.authService.loginWithEmailAndPassword(this.email.value, this.password.value);
+        const res = await this.authService.register(this.email.value, this.password.value, this.displayName.value);
       } catch(error) {
 
         let customMessage: string;

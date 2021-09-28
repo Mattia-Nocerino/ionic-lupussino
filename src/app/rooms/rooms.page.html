@@ -22,9 +22,10 @@
     <ion-card-header>
       <ion-card-title>Entra in una stanza</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content *ngIf="(rooms$ | async) as rooms">
       <ion-list>
-        <ion-item *ngFor="let room of rooms$ | async" [routerLink]="['/room', room.name]">{{ room.name }}</ion-item>
+        <ion-item *ngFor="let room of rooms" [routerLink]="['/room', room.name]">{{ room.name }}</ion-item>
+        <ion-item *ngIf="rooms.length === 0">Non ci sono stanze aperte</ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>

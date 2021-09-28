@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-rooms',
@@ -12,18 +14,20 @@ export class RoomsPage implements OnInit {
   newRoomName: string = '';
 
 
-  constructor(private db: AngularFireDatabase) { 
+  constructor(private db: AngularFireDatabase, public authService: AuthService, private router: Router) { 
     this.rooms$ = db.list('rooms').valueChanges();
   }
 
   ngOnInit() {
   }
 
-  createRoom() {
-    this.db.object('rooms/'+this.newRoomName).set({ 
+  async createRoom() {
+    await this.db.object(`rooms/${this.newRoomName}`).set({ 
       name: this.newRoomName, 
-      playerCount: 1, 
+      playersCount: 1, 
+      gamesCount: 0,
     })
+    this.router.navigateByUrl(`room/${this.newRoomName}`);
   }
 
 }

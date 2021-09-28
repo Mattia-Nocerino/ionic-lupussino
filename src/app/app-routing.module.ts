@@ -1,21 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
-    canActivate: [AngularFireAuthGuard]
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'register',
@@ -23,12 +13,21 @@ const routes: Routes = [
   },
   {
     path: 'rooms',
-    loadChildren: () => import('./rooms/rooms.module').then( m => m.RoomsPageModule)
+    loadChildren: () => import('./rooms/rooms.module').then( m => m.RoomsPageModule),
+    canActivate: [AngularFireAuthGuard], 
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) }
   },
   {
     path: 'room/:id',
-    loadChildren: () => import('./room/room.module').then( m => m.RoomPageModule)
+    loadChildren: () => import('./room/room.module').then( m => m.RoomPageModule),
+    canActivate: [AngularFireAuthGuard], 
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) }
   },
+  {
+    path: '',
+    redirectTo: 'rooms',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

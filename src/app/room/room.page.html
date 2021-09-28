@@ -1,11 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title></ion-title>
+    <ion-title *ngIf="(room$ | async) as room">{{ room.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="(room$ | async) as room">
-    {{room.name}}
-  </div>
+  <ion-card-content *ngIf="(players$ | async) as players">
+    <ion-list>
+      <ion-item *ngFor="let player of players">
+        <span class="presence" [ngClass]="player.status"></span>
+        {{ player.displayName }}
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
 </ion-content>

@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 export class LoginPage implements OnInit {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
   })
 
   constructor(public authService: AuthService, public toastController: ToastController) { }

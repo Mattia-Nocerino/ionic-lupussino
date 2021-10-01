@@ -48,7 +48,8 @@ export class AuthService {
       if (res.additionalUserInfo.isNewUser) {
         this.db.object(`players/${res.user.uid}`).set({
           displayName: res.user.displayName,
-          status: 'online'
+          status: 'online',
+          key: res.user.uid
         })
       }
       this.router.navigateByUrl('rooms');
@@ -62,7 +63,8 @@ export class AuthService {
       const res = await this.auth.createUserWithEmailAndPassword(email, password);
       this.db.object(`players/${res.user.uid}`).set({
         displayName,
-        status: 'online'
+        status: 'online',
+        key: res.user.uid
       })
       this.router.navigateByUrl('rooms');
     } catch(error) {

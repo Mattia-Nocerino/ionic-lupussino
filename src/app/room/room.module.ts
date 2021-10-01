@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RoomPageRoutingModule } from './room-routing.module';
 
 import { RoomPage } from './room.page';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { RoomPage } from './room.page';
     IonicModule,
     RoomPageRoutingModule
   ],
-  declarations: [RoomPage]
+  declarations: [RoomPage, PlayerComponent]
 })
 export class RoomPageModule {}

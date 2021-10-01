@@ -1,16 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="(room$ | async) as room">{{ room.name }}</ion-title>
+    <ion-title *ngIf="room">{{ room.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card-content *ngIf="(players$ | async) as players">
-    <ion-list>
-      <ion-item *ngFor="let player of players">
-        <span class="presence" [ngClass]="player.status"></span>
-        {{ player.displayName }}
-      </ion-item>
-    </ion-list>
-  </ion-card-content>
+<ion-content *ngIf="players">
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let player of players">
+          <span class="presence" [ngClass]="player.status"></span>
+          {{ player.displayName }}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="currentPlayer">
+    <ion-card-content>
+      {{ currentPlayer.role.name }}
+      {{ currentPlayer.role.info }}
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-button expand="block" (click)="newGame()">Nuova partita</ion-button>
 </ion-content>

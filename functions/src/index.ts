@@ -1,16 +1,13 @@
 import * as functions from "firebase-functions";
 
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
-
-export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
-
-export const uppercaseRoomName = functions.database.ref("/rooms")
-    .onCreate((snapshot) => {
+export const uppercaseRoomName = functions
+    .region("europe-west1")
+    .database.ref("/rooms/{roomId}")
+    .onCreate((snapshot, context) => {
+      const roomId = context.params.roomId;
       const roomData = snapshot.val();
-      const name = roomData.name.toUppercase();
-      return snapshot.ref.update({name});
+      const name = "x " + roomData.name + " x";
+
+      console.log(`Il nome della stanza è ${name} e il suo id è ${roomId}`);
+      return snapshot.ref.update({name: name});
     });
